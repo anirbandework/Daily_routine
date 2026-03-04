@@ -237,6 +237,106 @@ function App() {
                     })}
                   </div>
                 </div>
+
+                {/* Weekly Subject-wise Hours Graph */}
+                <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
+                  <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <BarChart3 className="w-6 h-6 text-emerald-400" />
+                    Weekly Subject-wise Study Hours
+                  </h3>
+                  <div className="space-y-4">
+                    {(() => {
+                      const weeklySubjects = {};
+                      routine.forEach(day => {
+                        day.schedule.filter(s => s.type === 'study' && s.subject).forEach(session => {
+                          if (!weeklySubjects[session.subject]) {
+                            weeklySubjects[session.subject] = 0;
+                          }
+                          weeklySubjects[session.subject] += session.duration;
+                        });
+                      });
+                      const maxHours = Math.max(...Object.values(weeklySubjects)) / 60;
+                      
+                      return Object.entries(weeklySubjects).map(([subject, minutes]) => {
+                        const Icon = iconMap[subject];
+                        const hours = (minutes / 60).toFixed(1);
+                        const percentage = (hours / maxHours) * 100;
+                        return (
+                          <div key={subject}>
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                {Icon && <Icon className="w-5 h-5 text-emerald-400" />}
+                                <span className="text-sm font-semibold text-white capitalize">{subject}</span>
+                              </div>
+                              <span className="text-sm text-slate-400">{hours}h</span>
+                            </div>
+                            <div className="w-full bg-slate-700 rounded-full h-3">
+                              <div 
+                                className="bg-gradient-to-r from-emerald-500 to-teal-500 h-3 rounded-full transition-all duration-500"
+                                style={{ width: `${percentage}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        );
+                      });
+                    })()}
+                  </div>
+                </div>
+
+                {/* Daily Subject Distribution Graph */}
+                <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
+                  <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <Calendar className="w-6 h-6 text-emerald-400" />
+                    Daily Subject Distribution
+                  </h3>
+                  <div className="space-y-6">
+                    {routine.map((day, idx) => {
+                      const subjectStudy = {};
+                      day.schedule.filter(s => s.type === 'study' && s.subject).forEach(session => {
+                        if (!subjectStudy[session.subject]) {
+                          subjectStudy[session.subject] = 0;
+                        }
+                        subjectStudy[session.subject] += session.duration;
+                      });
+                      
+                      const totalDayStudy = Object.values(subjectStudy).reduce((a, b) => a + b, 0);
+                      if (totalDayStudy === 0) return null;
+                      
+                      return (
+                        <div key={idx} className="border border-slate-600 rounded-xl p-4 bg-slate-700/30">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm font-bold text-white">{day.day}</span>
+                            <span className="text-xs text-slate-400">{(totalDayStudy / 60).toFixed(1)}h total</span>
+                          </div>
+                          <div className="space-y-2">
+                            {Object.entries(subjectStudy).map(([subject, minutes]) => {
+                              const Icon = iconMap[subject];
+                              const hours = (minutes / 60).toFixed(1);
+                              const percentage = (minutes / totalDayStudy) * 100;
+                              return (
+                                <div key={subject}>
+                                  <div className="flex items-center justify-between mb-1">
+                                    <div className="flex items-center gap-2">
+                                      {Icon && <Icon className="w-4 h-4 text-emerald-400" />}
+                                      <span className="text-xs text-slate-300 capitalize">{subject}</span>
+                                    </div>
+                                    <span className="text-xs text-white font-semibold">{hours}h</span>
+                                  </div>
+                                  <div className="w-full bg-slate-600 rounded-full h-2">
+                                    <div 
+                                      className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full transition-all duration-500"
+                                      style={{ width: `${percentage}%` }}
+                                    ></div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             )}
           </div>
