@@ -254,14 +254,14 @@ function App() {
               <p className="text-slate-400 mb-8">Anirban loves you .......</p>
             
             {/* Weekly Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+            <div className="overflow-x-auto -mx-8 px-8 scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-slate-700">
+              <table className="w-full border-collapse min-w-[1200px]">
                 <thead>
                   <tr className="bg-gradient-to-r from-indigo-600 to-purple-600">
-                    <th className="border border-slate-600 px-4 py-3 text-left font-semibold text-white">Day</th>
-                    <th className="border border-slate-600 px-4 py-3 text-left font-semibold text-white">Morning Session</th>
-                    <th className="border border-slate-600 px-4 py-3 text-left font-semibold text-white">Afternoon Session</th>
-                    <th className="border border-slate-600 px-4 py-3 text-left font-semibold text-white">Evening Session</th>
+                    <th className="border border-slate-600 px-6 py-3 text-left font-semibold text-white min-w-[150px]">Day</th>
+                    <th className="border border-slate-600 px-6 py-3 text-left font-semibold text-white min-w-[300px]">Morning Session</th>
+                    <th className="border border-slate-600 px-6 py-3 text-left font-semibold text-white min-w-[300px]">Afternoon Session</th>
+                    <th className="border border-slate-600 px-6 py-3 text-left font-semibold text-white min-w-[300px]">Evening Session</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -348,7 +348,7 @@ function App() {
 
                     return (
                       <tr key={idx} className="hover:bg-slate-700/30 transition">
-                        <td className="border border-slate-600 px-4 py-4 font-bold text-white bg-slate-700/50">
+                        <td className="border border-slate-600 px-6 py-4 font-bold text-white bg-slate-700/50 min-w-[150px]">
                           <div className="flex items-center space-x-2">
                             <Calendar className="w-5 h-5 text-indigo-400" />
                             <div>
@@ -360,13 +360,13 @@ function App() {
                             </div>
                           </div>
                         </td>
-                        <td className="border border-slate-600 px-4 py-4 align-top bg-slate-800/30">
+                        <td className="border border-slate-600 px-6 py-4 align-top bg-slate-800/30 min-w-[300px]">
                           <ActivityBox activities={morningActivities} />
                         </td>
-                        <td className="border border-slate-600 px-4 py-4 align-top bg-slate-800/30">
+                        <td className="border border-slate-600 px-6 py-4 align-top bg-slate-800/30 min-w-[300px]">
                           <ActivityBox activities={afternoonActivities} />
                         </td>
-                        <td className="border border-slate-600 px-4 py-4 align-top bg-slate-800/30">
+                        <td className="border border-slate-600 px-6 py-4 align-top bg-slate-800/30 min-w-[300px]">
                           <ActivityBox activities={eveningActivities} />
                         </td>
                       </tr>
