@@ -4,7 +4,7 @@ import { SYLLABUS } from './data/syllabus';
 import { generateWeeklyRoutine, getSubjects } from './data/routineGenerator';
 
 function App() {
-  const [view, setView] = useState('routine');
+  const [view, setView] = useState('home');
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [syllabus, setSyllabus] = useState([]);
   const [routine] = useState(generateWeeklyRoutine());
