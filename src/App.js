@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Brain, Calculator, BookOpen, Globe, Microscope, Landmark, Calendar, Clock, Target, TrendingUp, CheckCircle, Plus, BarChart3, Utensils, Dumbbell, Coffee, Users, Moon, Sun, Sunrise, Heart, Smile } from 'lucide-react';
+import React, { useState } from 'react';
+import { Brain, Calculator, BookOpen, Globe, Microscope, Landmark, Calendar, Clock, Target, BarChart3, Utensils, Dumbbell, Coffee, Users, Moon, Sunrise, Heart, Plus } from 'lucide-react';
 import { SYLLABUS } from './data/syllabus';
 import { generateWeeklyRoutine, getSubjects } from './data/routineGenerator';
 
 function App() {
   const [view, setView] = useState('routine');
-  const [subjects] = useState(getSubjects());
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [syllabus, setSyllabus] = useState([]);
   const [routine] = useState(generateWeeklyRoutine());
@@ -17,12 +16,6 @@ function App() {
     gk: Globe,
     science: Microscope,
     social: Landmark
-  };
-
-  const viewSubjectSyllabus = (subject) => {
-    setSelectedSubject(subject);
-    setSyllabus(SYLLABUS[subject.id].topics);
-    setView('syllabus');
   };
 
   return (
